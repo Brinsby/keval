@@ -1,10 +1,10 @@
 //requiring packages
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
+var express = require('express'); //middleware package
+var app = express(); //allow app to use express
+var bodyParser = require('body-parser'); //allow express to parse requests
+var mongoose = require('mongoose'); //db stuff 
 
-//Schema
+//Schema for db
 var Keval = require('./app/models/keval')
 //connect to db
 mongoose.Promise = global.Promise; //apparently this is now needed due to  a library depracation inside mongoose
@@ -14,7 +14,7 @@ mongoose.connect('mongodb://msa:app@jello.modulusmongo.net:27017/avety2vA');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-//set application to listen on 3031
+//set application to listen on 3031 so it doesnt interfere with anything
 var port = process.env.PORT || 3031;
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -23,9 +23,9 @@ var router = express.Router();
 
 //middleware to use for all requests
 router.use(function(req, res, next) {
-	//This is where we would log crap
-	console.log("Something is happening");
-	next();//go to actual route
+	//This is where we would log stuff like maybe who made the call or something like that.
+	console.log("I am recieving a request!");
+	next();//go to actual routes 
 });
 
 //-------------------------------------------------------------------
@@ -44,10 +44,10 @@ router.route('/keval')
         var keval = new Keval(); // create a new instance of the keval model
         keval.name = req.body.name;  // set the keval name (comes from the request)
 
-        // save the keval and check for errors
+        //save the keval and check for errors
         keval.save(function(err) {
             if (err){ res.send(err); }
-            res.json({ message: 'keval created!' });
+            res.json({ message: 'keval created!' }); //let the user know the key value pair was created
         });
         
     })
@@ -73,7 +73,7 @@ router.route('/keval/:keval_id')
 
 			keval.save(function(err){
 				if(err) res.send(err);
-				res.json({ message: 'keval updated!'}); // Return that the key value pair was updated
+				res.json({ message: 'keval updated!'}); //return that the key value pair was updated
 			});
 		});
 	})
@@ -82,7 +82,7 @@ router.route('/keval/:keval_id')
 			_id: req.params.keval_id //set the request id equal to the db id
 		}, function (err, bear) {
 			if(err){ res.send(err); }
-			res.json({ message: 'Successfully deleted' }); //Return that the key value pair was deleted
+			res.json({ message: 'Successfully deleted' }); //return that the key value pair was deleted
 		});
 	});
 
