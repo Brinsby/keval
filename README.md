@@ -18,7 +18,7 @@ This is the test API for MSA interview, this follows all the instructions in the
 ``` DELETE @ http://localhost:3031/api/keval/[_id goes here] ```
    
 ## Possible API Requests
-Currently you can do the following with the API
+Currently you can do the following with the API. Required API calls were mentioned in the spec. 
 
 | Route                | VERB     | Description                                                | Required |
 | -------------------- | -------- | ---------------------------------------------------------- | -------- |
