@@ -1,0 +1,25 @@
+{
+  "name": "keval",
+  "version": "1.0.0",
+  "description": "MSA interview ",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.0.2",
+    "express": "~4.0.0",
+    "mongoose": "^3.6.20"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Brinsby/keval.git"
+  },
+  "author": "Josh Hnat",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Brinsby/keval/issues"
+  },
+  "homepage": "https://github.com/Brinsby/keval#readme"
+}
