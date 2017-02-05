@@ -41,8 +41,8 @@ router.get('/', function(req, res) {
 router.route('/keval')
     .post(function(req, res) {
         
-        var keval = new Keval(); // create a new instance of the keval model
-        keval.name = req.body.name;  // set the keval name (comes from the request)
+        var keval = new Keval(); //create a new instance of the keval model
+        keval.name = req.body.name;  //set the keval name (comes from the request)
 
         //save the keval and check for errors
         keval.save(function(err) {
@@ -56,6 +56,13 @@ router.route('/keval')
             if (err){ res.send(err); }
             res.json(keval); //return all inserted key value pairs
         });
+    })
+    .delete(function(req, res){
+    	Keval.remove({}
+	    	,function(err, keval){
+	    		if(err){ res.send(err); }
+				res.json({ message: 'Successfully deleted everything' }); //return that all key value pair were deleted
+	    	});
     });
 
 //Specific get, update, and delete a keval
@@ -80,7 +87,7 @@ router.route('/keval/:keval_id')
 	.delete(function (req, res) {
 		Keval.remove({
 			_id: req.params.keval_id //set the request id equal to the db id
-		}, function (err, bear) {
+		}, function (err, keval) {
 			if(err){ res.send(err); }
 			res.json({ message: 'Successfully deleted' }); //return that the key value pair was deleted
 		});
