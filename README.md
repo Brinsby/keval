@@ -1,6 +1,6 @@
 # MSA key value interview test
 ### Explanation of Code: 
-This is the test API for MSA interview, this follows all the instructions in the email I recieved as I understood them with the exception of one, the non persistent data. I implemented the persistent data because I found a free service (as long as it is not accessed a lot) to do so and it was incredibly easy to accomplish. The program follows the specified language requirement of being done in Javascript by utilizing a Node.js Server as that is what I am familiar with. Express was chosen as a middleware technology because again, that is what I am familiar with but also because it provides a very easy and convient way to setup routing for API calls. If needed the server that runs this API could also run other services and the way that the routing is setup would make any code additions be very easy and organized. I added two pieces of additional functionality because it was good practice for myself.
+This is the test API for MSA interview, this follows all the instructions in the email I recieved as I understood them with the exception of one, the non persistent data. I implemented the persistent data because I found a free service (as long as it is not accessed a lot) to do so and it was incredibly easy to accomplish. The program follows the specified language requirement of being done in Javascript by utilizing a Node.js Server as that is what I am familiar with. Express was chosen as a middleware technology because again, that is what I am familiar with but also because it provides a very easy and convient way to setup routing for API calls. If needed the server that runs this API could also run other services and the way that the routing is setup would make any code additions be very easy and organized. I added three pieces of additional functionality because it was good practice for myself and one of them was useful for testing (delete all). Due to how Monogo works there was no need to specify an ID for values entered as the DB will automatically do that for all values entered. 
 
 ### 2 Things you will need
   * Something to send GET, POST, PUT, and DELETE requests with (I used Postman (www.getpostman.com) as I think it is a nice tool and I am familiar with it) 
@@ -24,6 +24,7 @@ Currently you can do the following with the API. Required API calls were mention
 | -------------------- | -------- | ---------------------------------------------------------- | -------- |
 | /api/keval           | *GET*    | Gets all key value expressions                             | Yes      |
 | /api/keval           | *POST*   | Creates a new Key Value Pair                               | Yes      |
+| /api/keval           | *DELETE* | Deletes all stored data                                    | No       |
 | /api/keval/:keval_id | *GET*    | Gets specified key value                                   | Yes      |
 | /api/keval/:keval_id | *PUT*    | Updates a Key value pair with a new whatever is specified  | No       |
 | /api/keval/:keval_id | *DELETE* | Deletes a specified key value pair                         | No       |
