@@ -28,5 +28,3 @@ Currently you can do the following with the API. Required API calls were mention
 | /api/keval/:keval_id | *GET*    | Gets specified key value                                   | Yes      |
 | /api/keval/:keval_id | *PUT*    | Updates a Key value pair with a new whatever is specified  | No       |
 | /api/keval/:keval_id | *DELETE* | Deletes a specified key value pair                         | No       |
-
-
