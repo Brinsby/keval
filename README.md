@@ -11,7 +11,7 @@ This is the test API for MSA interview, this follows all the instructions in the
 ```git clone https://github.com/Brinsby/keval.git```
 2. Run ```npm install``` so that it installs all the needed packages
 3. Run ```node server.js``` which will actually run the server. If everything is running correctly, you will see a message saying !["Magic happens on port 3031"](http://i.imgur.com/2cyYEnQ.png)
-4. Now you should be able to send requests to the server here are some example ones 
+4. Now you should be able to send requests to the server here are some example ones (also make sure the requests are of type x-ww-form-urlencoded otherwise I dont believe they will be read by the server)
 
 ``` GET @ http://localhost:3031/api/keval ```
 
