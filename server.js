@@ -28,20 +28,20 @@ router.use(function(req, res, next) {
 	next();//go to actual route
 });
 
-//First route
+//-------------------------------------------------------------------
+//API CALLS
+
+//Checking to see the API is up and running
 router.get('/', function(req, res) {
-	res.json({ message: 'hooray! welcome to the API'});
+	res.json({ message: 'The API is still alive!'});
 });
 
-
-
-//Actual API calls
-//first handle basic post and get calls
+//Actual API CALLS
+//Basic post and get calls accessed via post request (localhost:3031/api/keval)
 router.route('/keval')
-	//accessed via a post request (localhost:3031/api/keval)
     .post(function(req, res) {
         
-        var keval = new Keval();      // create a new instance of the keval model
+        var keval = new Keval(); // create a new instance of the keval model
         keval.name = req.body.name;  // set the keval name (comes from the request)
 
         // save the keval and check for errors
@@ -51,20 +51,19 @@ router.route('/keval')
         });
         
     })
-    //accessed via a get request (localhost:3031/api/keval)
     .get(function(req, res) {
         Keval.find(function(err, keval) {
             if (err){ res.send(err); }
-            res.json(keval);
+            res.json(keval); //return all inserted key value pairs
         });
     });
 
-//now handle specific get specific, update, and delete a keval
+//Specific get, update, and delete a keval
 router.route('/keval/:keval_id')
 	.get(function (req, res) {
 		Keval.findById(req.params.keval_id, function (err, keval) {
 			if(err){ res.send(err); }
-			res.json(keval);
+			res.json(keval); //return specific id unless there is an error
 		});
 	})
 	.put(function (req, res) {
@@ -74,22 +73,21 @@ router.route('/keval/:keval_id')
 
 			keval.save(function(err){
 				if(err) res.send(err);
-
-				res.json({ message: 'keval updated!'});
+				res.json({ message: 'keval updated!'}); // Return that the key value pair was updated
 			});
 		});
 	})
 	.delete(function (req, res) {
 		Keval.remove({
-			_id: req.params.keval_id
+			_id: req.params.keval_id //set the request id equal to the db id
 		}, function (err, bear) {
 			if(err){ res.send(err); }
-			res.json({ message: 'Successfully deleted' });
+			res.json({ message: 'Successfully deleted' }); //Return that the key value pair was deleted
 		});
 	});
 
-//Resgister routes
-//all routes will be prefixed with /api
+//Register routes
+//all routes will be prefixed with /api 
 app.use('/api', router);
 
 app.listen(port);
