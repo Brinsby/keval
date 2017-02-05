@@ -2,19 +2,20 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var mongoose   = require('mongoose');
-var Keval = require('./app/models/keval')
+var mongoose = require('mongoose');
 
+//Schema
+var Keval = require('./app/models/keval')
 //connect to db
-//mongoose.connect('mongodb://node:node@novus.modulusmongo.net:27017/Iganiq8o');
-mongoose.createConnection('mongodb://msa:app@jello.modulusmongo.net:27017/avety2vA');
+mongoose.Promise = global.Promise; //apparently this is now needed due to  a library depracation inside mongoose
+mongoose.connect('mongodb://msa:app@jello.modulusmongo.net:27017/avety2vA');
 
 //make app use body parser, allows us to gather data from POST request
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-//set application to listen on 8080
-var port = process.env.PORT || 8080;
+//set application to listen on 3031
+var port = process.env.PORT || 3031;
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //API ROUTES
@@ -30,46 +31,66 @@ router.use(function(req, res, next) {
 //First route
 router.get('/', function(req, res) {
 	res.json({ message: 'hooray! welcome to the API'});
-	// next();
 });
 
 
 
 //Actual API calls
+//first handle basic post and get calls
 router.route('/keval')
-	//accessed via a post request (localhost:8080/api/keval)
-	.post(function(req, res) {
-		//create new key value model 
-		console.log("I made it here");
-		var keval = new Keval();
-		//set the name to the name that comes from the request
-		keval.name = req.body.name;
-		
-		console.log("I put the value pairs away");
+	//accessed via a post request (localhost:3031/api/keval)
+    .post(function(req, res) {
+        
+        var keval = new Keval();      // create a new instance of the keval model
+        keval.name = req.body.name;  // set the keval name (comes from the request)
 
-		keval.save(function(err) { //save and check for errors
-			if(err){
-				console.log("I made a booboo");
-				res.send(err);
+        // save the keval and check for errors
+        keval.save(function(err) {
+            if (err){ res.send(err); }
+            res.json({ message: 'keval created!' });
+        });
+        
+    })
+    //accessed via a get request (localhost:3031/api/keval)
+    .get(function(req, res) {
+        Keval.find(function(err, keval) {
+            if (err){ res.send(err); }
+            res.json(keval);
+        });
+    });
 
-			}
-			console.log("I was unable to send crap");
-			res.json({ message: 'Key-Value Pair created! '});
+//now handle specific get specific, update, and delete a keval
+router.route('/keval/:keval_id')
+	.get(function (req, res) {
+		Keval.findById(req.params.keval_id, function (err, keval) {
+			if(err){ res.send(err); }
+			res.json(keval);
+		});
+	})
+	.put(function (req, res) {
+		Keval.findById(req.params.keval_id, function (err, keval) {
+			if(err){ res.send(err); }
+			keval.name = req.body.name;//update the info (name)
+
+			keval.save(function(err){
+				if(err) res.send(err);
+
+				res.json({ message: 'keval updated!'});
+			});
+		});
+	})
+	.delete(function (req, res) {
+		Keval.remove({
+			_id: req.params.keval_id
+		}, function (err, bear) {
+			if(err){ res.send(err); }
+			res.json({ message: 'Successfully deleted' });
 		});
 	});
-    // .get(function(req, res) {
-    //     Keval.find(function(err, keval) {
-    //         if (err)
-    //             res.send(err);
-
-    //         res.json(keval);
-    //     });
-    // });
-
 
 //Resgister routes
 //all routes will be prefixed with /api
 app.use('/api', router);
 
 app.listen(port);
-console.log("Magic happens on port" + port);
+console.log("Magic happens on port " + port);

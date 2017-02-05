@@ -1,7 +1,7 @@
-var mongoose     = require('mongoose');
-var Schema       = mongoose.Schema;
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-var KevalSchema   = new Schema({
+var KevalSchema = new Schema({
     name: String
 });
 
