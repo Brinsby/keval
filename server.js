@@ -7,7 +7,7 @@ var mongoose = require('mongoose'); //db stuff
 //Schema for db
 var Keval = require('./app/models/keval')
 //connect to db
-mongoose.Promise = global.Promise; //apparently this is now needed due to  a library depracation inside mongoose
+mongoose.Promise = global.Promise; //apparently this is now needed due to a depracated function inside mongoose
 mongoose.connect('mongodb://msa:app@jello.modulusmongo.net:27017/avety2vA');
 
 //make app use body parser, allows us to gather data from POST request
